@@ -20,6 +20,7 @@ public class SceneManager : MonoBehaviour
         resolutionDropdown.value = PlayerPrefs.GetInt("Resolution", 0);
 
         resolutionDropdown.onValueChanged.AddListener(delegate { SaveSettings(); });
+        notificationsToggle.onValueChanged.AddListener(delegate { OnNotificationsToggleChanged(); });
     }
 
     public void ShowTitleCanvas()
@@ -51,6 +52,31 @@ public class SceneManager : MonoBehaviour
     {
         SaveSettings();
         ShowTitleCanvas();
+    }
+
+    public void OnNotificationsToggleChanged()
+    {
+        if (notificationsToggle.isOn)
+        {
+            EnableNotifications();
+        }
+        else
+        {
+            DisableNotifications();
+        }
+
+        PlayerPrefs.SetInt("Notifications", notificationsToggle.isOn ? 1 : 0);
+        PlayerPrefs.Save();
+    }
+
+    private void EnableNotifications()
+    {
+        Debug.Log("Notifications Enabled");
+    }
+
+    private void DisableNotifications()
+    {
+        Debug.Log("Notifications Disabled");
     }
     
 }
